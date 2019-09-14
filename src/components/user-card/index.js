@@ -85,9 +85,9 @@ const IconStar = styled.svg`
 `;
 
 const UserCard = (props) => {
-  console.log('user',props.idx);
+  // console.log('user',props.idx);
   const { login, node_id, avatar_url, bio, email, location, name, stars } = props.user;
-  console.log("props", props);
+  // console.log("props", props);
   return (
     <div key={node_id}>
       <Wrapper>
