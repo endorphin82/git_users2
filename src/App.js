@@ -1,10 +1,18 @@
-import React from 'react';
+import React from "react";
+import UserList from "./components/user-list";
+import InputLocation from "./components/input-location";
+import styled from "styled-components";
+
+const AppFont = styled.div`
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+`;
 
 function App() {
   return (
-    <div>
-      <h1>App</h1>
-    </div>
+    <AppFont className="App">
+      <InputLocation/>
+      <UserList/>
+    </AppFont>
   );
 }
 
