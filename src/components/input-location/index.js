@@ -4,83 +4,35 @@ import styled from "styled-components";
 import { getUsers, resetUsers } from "../../actions";
 import { connect } from "react-redux";
 import { isUsers } from "../../selectors";
+import Field from "./Field";
+import { StyledContainer } from "../../theme/globalStyle";
 
 const InputLocation = (props) => {
-  const [input, setInput] = useState("Kharkov");
+  const [input, setInput] = useState("Kiev");
   useEffect(() => {
     console.log("useEffect", props);
-    if (!props.isUsers) props.onGetUsers();
+    if (!props.isUsers) props.onGetUsers(input);
   });
 
   const inputHandler = event => {
-    console.log("input", input);
+
     setInput(event.target.value);
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      props.resetUsers();
-      props.onGetUsers(input);
-    }
+    console.log("event", event.target.name, " ", event.target.value);
+
   };
 
   const handleSubmit = event => {
-    event.preventDefault();
+    // props.resetUsers();
+    if (event) {
+      event.preventDefault();
+    }
+    console.log("SUBMIT", event.target.value);
+    props.onGetUsers(input);
   };
-  const StyledButton = styled.button`
-  height: 110%;
-  cursor: pointer;
-  background: transparent;
-  font-size: 16px;
-  border-radius: 3px;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  // margin: 0 1em;
-  transition: 0.5s all ease-out;
-  &:hover {
-    background-color: palevioletred;
-    color: white;
-  }
-`;
 
-  const StyledContainer = styled.div`
-    display: flex;
-        justify-content: flex-start;
-
-    width: 400px;
-    border: 1px solid green;
-    background-color: #e7e7e7;
-    margin: 1% auto;
-    border-radius: 2px;
-    height: 30px;
-  `;
-
-  const StyledInputContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  `;
-  const StyledInput = styled.input`
-  height: 100%;
-  font-size: 16px;
-  border: solid 1px #dbdbdb;
-  border-radius: 3px;
-  color: #262626;
-  border-radius: 3px;
-  color: #999;
-  cursor: text;
-  font-size: 14px;
-  font-weight: 300;
-  background: #fafafa;
-    text-align: left;
-  &:active,
-  &:focus {
-    background: #fafafa;
-  }
-`;
   const Styledlabel = styled.label`
-  height: 110%;
     font-size: 14px;
     color: #7ea897;
-      border: solid 1px gold;
       margin: auto 0;
   `;
   const StyledLIDiv = styled.div`
@@ -88,25 +40,36 @@ const InputLocation = (props) => {
     justify-content: flex-start;
     width: 100%;
   `;
-
+  const StyledContainerCnter = styled(StyledContainer)`
+    align-items: center;
+`;
+  const LabelLeftContainer = styled(Styledlabel)`
+  width: 33.333%;
+  text-align: left;
+`;
+    const Center = styled.div`
+    width: 33.333%;
+    text-align: center;
+  `;
   return (
-    <form onSubmit={handleSubmit} >
+    <>
 
-      <StyledContainer>
-        <StyledInputContainer>
-          <StyledLIDiv>
-            <Styledlabel htmlFor="location">Location:{input}</Styledlabel>
-            <StyledInput
+      <StyledContainerCnter>
+        <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
+        <Center>
+          <form onSubmit={handleSubmit}>
+            <Field
+              placeholder="Location"
               type="text"
               value={input}
               onChange={inputHandler}
               name="location"
+              required
             />
-            <StyledButton type="submit">Search</StyledButton>
-          </StyledLIDiv>
-        </StyledInputContainer>
-      </StyledContainer>
-    </form>
+          </form>
+        </Center>
+      </StyledContainerCnter>
+    </>
   );
 };
 

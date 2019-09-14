@@ -4,9 +4,9 @@ import styled from "styled-components";
 import UserCard from "../user-card";
 import { connect } from "react-redux";
 import { usersGetter } from "../../selectors";
+import { StyledContainer } from "../../theme/globalStyle";
 
-const FlexColumn = styled.div`
-  display: flex;
+const FlexColumn = styled(StyledContainer)`
   flex-direction: column;
 `;
 
