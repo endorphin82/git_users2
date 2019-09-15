@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { usersGetter } from "../../selectors";
 import { StyledContainer } from "../../theme/globalStyle";
 
-const FlexColumn = styled(StyledContainer)`
+const FlexColumn = styled.div`
   flex-direction: column;
 `;
 

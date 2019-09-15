@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { getUsers, resetUsers } from "../../actions";
 import { connect } from "react-redux";
 import { isUsers } from "../../selectors";
-import { StyledContainer } from "../../theme/globalStyle";
+import { StyledContainer, Wrapper } from "../../theme/globalStyle";
 
 const InputLocation = (props) => {
   const [input, setInput] = useState("Kharkov");
@@ -20,7 +20,7 @@ const InputLocation = (props) => {
   const handleSubmit = event => {
     // props.resetUsers();
     if (event) {
-    event.preventDefault();
+      event.preventDefault();
     }
     console.log("SUBMIT", event.target.value);
     props.onGetUsers(input);
@@ -32,28 +32,30 @@ const InputLocation = (props) => {
   };
   return (
     <>
+      <Wrapper>
+        <StyledContainerCenter>
+          <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
+          <Center>
+            <form onSubmit={handleSubmit}>
 
-      <StyledContainerCnter>
-        <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
-        <Center>
-          <form onSubmit={handleSubmit}>
-
-            <Input
-              onFocus={handlerFocus}
-              placeholder="Location"
-              type="text"
-              value={input}
-              onChange={inputHandler}
-              name="location"
-              required
-            />
-          </form>
-
-        </Center>
-      </StyledContainerCnter>
+              <Input
+                onFocus={handlerFocus}
+                placeholder="Location"
+                type="text"
+                value={input}
+                onChange={inputHandler}
+                name="location"
+                required
+              />
+            </form>
+          </Center>
+          {/*<Right> asda</Right>*/}
+        </StyledContainerCenter>
+      </Wrapper>
     </>
   );
 };
+
 const Input = styled.input`
   font-size: 16px;
   border: solid 1px #dbdbdb;
@@ -73,27 +75,31 @@ const Input = styled.input`
   }
 `;
 
-const Styledlabel = styled.label`
-    font-size: 14px;
-    color: #7ea897;
-      margin: auto 0;
-  `;
-const StyledLIDiv = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-  `;
-const StyledContainerCnter = styled(StyledContainer)`
-    align-items: center;
+const StyledContainerCenter = styled(StyledContainer)`
+  justify-content: flex-start;
+  padding-bottom: 26px;
 `;
+
+const Styledlabel = styled.label`
+  font-size: 14px;
+  color: #7ea897;
+  margin: auto 0;
+`;
+
 const LabelLeftContainer = styled(Styledlabel)`
-  width: 33.333%;
+  width: 33.333%; 
   text-align: left;
 `;
+
 const Center = styled.div`
-    width: 33.333%;
-    text-align: center;
-  `;
+  width: 33.333%;
+  text-align: center;
+`;
+
+// const Right = styled.div`
+//   width: 33.333%;
+//   text-align: center;
+// `;
 
 const mapStateToProps = state => ({
   isUsers: isUsers(state)
