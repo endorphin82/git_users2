@@ -4,53 +4,32 @@ import styled from "styled-components";
 import { getUsers, resetUsers } from "../../actions";
 import { connect } from "react-redux";
 import { isUsers } from "../../selectors";
-import Field from "./Field";
 import { StyledContainer } from "../../theme/globalStyle";
 
 const InputLocation = (props) => {
-  const [input, setInput] = useState("Kiev");
+  const [input, setInput] = useState("Kharkov");
   useEffect(() => {
-    console.log("useEffect", props);
     if (!props.isUsers) props.onGetUsers(input);
-  });
+  }, []);
 
   const inputHandler = event => {
-
     setInput(event.target.value);
     console.log("event", event.target.name, " ", event.target.value);
-
   };
 
   const handleSubmit = event => {
     // props.resetUsers();
     if (event) {
-      event.preventDefault();
+    event.preventDefault();
     }
     console.log("SUBMIT", event.target.value);
     props.onGetUsers(input);
   };
 
-  const Styledlabel = styled.label`
-    font-size: 14px;
-    color: #7ea897;
-      margin: auto 0;
-  `;
-  const StyledLIDiv = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-  `;
-  const StyledContainerCnter = styled(StyledContainer)`
-    align-items: center;
-`;
-  const LabelLeftContainer = styled(Styledlabel)`
-  width: 33.333%;
-  text-align: left;
-`;
-    const Center = styled.div`
-    width: 33.333%;
-    text-align: center;
-  `;
+  const handlerFocus = event => {
+    event.target.placeholder = "";
+    event.target.value = "";
+  };
   return (
     <>
 
@@ -58,7 +37,9 @@ const InputLocation = (props) => {
         <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
         <Center>
           <form onSubmit={handleSubmit}>
-            <Field
+
+            <Input
+              onFocus={handlerFocus}
               placeholder="Location"
               type="text"
               value={input}
@@ -67,11 +48,52 @@ const InputLocation = (props) => {
               required
             />
           </form>
+
         </Center>
       </StyledContainerCnter>
     </>
   );
 };
+const Input = styled.input`
+  font-size: 16px;
+  border: solid 1px #dbdbdb;
+  border-radius: 3px;
+  color: #262626;
+  outline: 0;
+  padding: 7px 33px;
+  border-radius: 3px;
+  color: #999;
+  cursor: text;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  background: #fafafa;
+  &:active, &:focus {
+    text-align: left;
+  }
+`;
+
+const Styledlabel = styled.label`
+    font-size: 14px;
+    color: #7ea897;
+      margin: auto 0;
+  `;
+const StyledLIDiv = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+  `;
+const StyledContainerCnter = styled(StyledContainer)`
+    align-items: center;
+`;
+const LabelLeftContainer = styled(Styledlabel)`
+  width: 33.333%;
+  text-align: left;
+`;
+const Center = styled.div`
+    width: 33.333%;
+    text-align: center;
+  `;
 
 const mapStateToProps = state => ({
   isUsers: isUsers(state)
