@@ -12,9 +12,17 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 `;
+export  const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+`;
   export const StyledContainer = styled.div`
-    max-width: 1010px;
-    padding: 26px 20px;
+    //max-width: 1010px;
+    padding: 0 calc(50% - 500px);
+    padding-top: 26px;
+    //padding-right: 20px;
+    //padding-left: 20px;
+    //padding-bottom: 26px;
     width: 100%;
     display: flex;
     margin: 0 auto;

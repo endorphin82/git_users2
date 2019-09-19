@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import UserCard from "../user-card";
 import { connect } from "react-redux";
-import { usersGetter } from "../../selectors";
+import { expandUsersGetter, usersGetter } from "../../selectors";
 import { StyledContainer } from "../../theme/globalStyle";
+import { loadInfoUserByLogin } from "../../actions";
 
-const FlexColumn = styled(StyledContainer)`
+const FlexColumn = styled.div`
   flex-direction: column;
 `;
 
@@ -29,7 +30,10 @@ function UserList(props) {
 }
 
 const mapStateToProps = state => ({
-  users: usersGetter(state)
+  users: expandUsersGetter(state)
+});
+const mapDispatchToProps = dispatch => ({
+  onLoadInfoUserByLogin: (login, idx) => dispatch(loadInfoUserByLogin(login, idx))
 });
 
-export default connect(mapStateToProps, null)(UserList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
