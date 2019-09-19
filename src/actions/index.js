@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   BASEUSERSAPI,
   FETCH_USERS, START, SUCCESS, FAILURE,
-  LOAD_INFO_USER_BY_LOGIN, CIIY, RESET_USERS
+  LOAD_INFO_USER_BY_LOGIN, RESET_USERS
 } from "./actions-types";
 import api from "../api";
 
@@ -22,13 +22,20 @@ export const getUsers = (location = "Kharkov") => dispatch => {
     }));
 };
 
-export const loadInfoUserByLogin = (login, idx) => dispatch => {
+export const loadInfoUserByLogin = (login) => dispatch => {
   dispatch({
-    idx,
-    type: LOAD_INFO_USER_BY_LOGIN,
-    payload: login,
-    callAPI: `${BASEUSERSAPI}${login}`
+    type: LOAD_INFO_USER_BY_LOGIN + START
   });
+  return axios.get(`${BASEUSERSAPI}${login}`)
+    .then(response => response.data)
+    .then(user => dispatch({
+      type: LOAD_INFO_USER_BY_LOGIN + SUCCESS,
+      payload: { user }
+    }))
+    .catch(errors => dispatch({
+      type: LOAD_INFO_USER_BY_LOGIN + FAILURE,
+      payload: { errors }
+    }));
 };
 
 export const resetUsers = ({

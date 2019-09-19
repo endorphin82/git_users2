@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { getUsers, resetUsers } from "../../actions";
+import { getUsers, loadInfoUserByLogin, resetUsers } from "../../actions";
 import { connect } from "react-redux";
-import { isUsers } from "../../selectors";
+import { isUsers, usersGetter } from "../../selectors";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
 
 const InputLocation = (props) => {
   const [input, setInput] = useState("Kharkov");
   useEffect(() => {
-    if (!props.isUsers) props.onGetUsers(input);
+   !props.isUsers && props.onGetUsers(input);
   }, []);
+
+  useEffect(() => {
+    if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
+  }, [props.users]);
 
   const inputHandler = event => {
     setInput(event.target.value);
@@ -37,7 +41,6 @@ const InputLocation = (props) => {
           <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
           <Center>
             <form onSubmit={handleSubmit}>
-
               <Input
                 onFocus={handlerFocus}
                 placeholder="Location"
@@ -102,12 +105,15 @@ const Center = styled.div`
 // `;
 
 const mapStateToProps = state => ({
-  isUsers: isUsers(state)
+  isUsers: isUsers(state),
+  users: usersGetter(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   resetUsers,
-  onGetUsers: (ownProps) => dispatch(getUsers(ownProps))
+  onGetUsers: (ownProps) => dispatch(getUsers(ownProps)),
+  onLoadInfoUserByLogin: (login, idx) => dispatch(loadInfoUserByLogin(login, idx))
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputLocation);

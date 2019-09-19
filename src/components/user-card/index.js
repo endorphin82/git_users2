@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { userByIndFactory } from "../../selectors";
+import { expandUserByIndFactory, userByIndFactory } from "../../selectors";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
 
 const UserCard = (props) => {
-  // console.log('user',props.idx);
+  console.log('user',props);
   const { login, node_id, avatar_url, bio, email, location, name, stars } = props.user;
   // console.log("props", props);
   return (
@@ -138,10 +138,9 @@ const IconStar = styled.svg`
   fill: gold;
 `;
 
-
 export default connect((state, ownProps) => {
-  console.log("ownProps", ownProps);
-  const userSelector = userByIndFactory();
+  // console.log("ownProps", ownProps);
+  const userSelector = expandUserByIndFactory();
   return {
     user: userSelector(state, ownProps)
   };
