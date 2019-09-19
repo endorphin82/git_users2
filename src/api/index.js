@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_PREFIX = 'https://api.github.com';
+const API_PREFIX = "https://api.github.com";
 const NUMBER_OF_PROFILES_TO_DISPLAY = 10;
+
 // const API_TOKEN = '';
 
 export function getPopularUsersByLocation(location) {
@@ -9,13 +10,13 @@ export function getPopularUsersByLocation(location) {
     q: `location:${location}`,
     per_page: NUMBER_OF_PROFILES_TO_DISPLAY,
     // access_token: API_TOKEN,
-    sort: 'followers',
-    order: 'desc'
+    sort: "followers",
+    order: "desc"
   };
 
   return axios.get(`${API_PREFIX}/search/users`, { params });
 }
 
 export default {
-  getPopularUsersByLocation,
+  getPopularUsersByLocation
 };
