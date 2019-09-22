@@ -29,9 +29,7 @@ export default function users(state = initialState, action) {
         errors: action.payload.errors
       };
     case RESET_USERS:
-      return {
-        ...initialState
-      };
+      return initialState;
     default:
       return state;
   }

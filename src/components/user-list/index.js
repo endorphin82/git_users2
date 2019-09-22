@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import UserCard from "../user-card";
 import { connect } from "react-redux";
-import { expandUsersGetter, usersGetter } from "../../selectors";
-import { StyledContainer } from "../../theme/globalStyle";
+import { expandUsersGetter } from "../../selectors";
 import { loadInfoUserByLogin } from "../../actions";
 
 const FlexColumn = styled.div`

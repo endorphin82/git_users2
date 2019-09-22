@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { expandUserByIndFactory, userByIndFactory } from "../../selectors";
+import { expandUserByIndFactory } from "../../selectors";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
 
 const UserCard = (props) => {
-  console.log('user',props);
   const { login, node_id, avatar_url, bio, email, location, name, stars } = props.user;
-  // console.log("props", props);
   return (
     <div key={node_id}>
       <WrapperBorder>
@@ -43,12 +41,12 @@ const UserCard = (props) => {
               {
                 email
                   ?
-                  <StyledMailTo>
+                  <StyledMailTo email={email}>
                     <IconMailTo viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true">
                       <path
                         d="M0 4v8c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H1c-.55 0-1 .45-1 1zm13 0L7 9 1 4h12zM1 5.5l4 3-4 3v-6zM2 12l3.5-3L7 10.5 8.5 9l3.5 3H2zm11-.5l-4-3 4-3v6z"/>
                     </IconMailTo>
-                    email</StyledMailTo>
+                    {email}</StyledMailTo>
                   : null
               }
             </ParagraphLocation>
@@ -64,13 +62,13 @@ const WrapperBorder = styled(Wrapper)`
 `;
 
 const Left = styled.div`
-  width: 7%;
+  min-width: 50px;
   text-align: left;
   padding-top: 20px;
 `;
 
 const Right = styled.div`
-  width: 93%;
+  min-width: 300px;
 `;
 const Paragraph = styled.p`
   margin: 10px;
@@ -80,8 +78,8 @@ const ParagraphLocation = styled.p`
   opacity: 0.5;
 `;
 
-const mailTo = ({ className, children, mail }) => (
-  <a className={className} href={`mailto:${mail}`}>
+const mailTo = ({ className, children, email }) => (
+  <a className={className} href={`mailto:${email}`}>
     {children}
   </a>
 );
@@ -139,7 +137,6 @@ const IconStar = styled.svg`
 `;
 
 export default connect((state, ownProps) => {
-  // console.log("ownProps", ownProps);
   const userSelector = expandUserByIndFactory();
   return {
     user: userSelector(state, ownProps)

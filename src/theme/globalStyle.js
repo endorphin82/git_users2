@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 `;
-export  const Wrapper = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   display: flex;
 `;
@@ -25,5 +25,6 @@ export  const Wrapper = styled.div`
     //padding-bottom: 26px;
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
   `;
