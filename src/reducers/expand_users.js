@@ -1,4 +1,4 @@
-import { FAILURE, LOAD_INFO_USER_BY_LOGIN, START, SUCCESS } from "../actions/actions-types";
+import { FAILURE, LOAD_INFO_USER_BY_LOGIN, RESET_USERS, START, SUCCESS } from "../actions/actions-types";
 
 const initialState = [];
 
@@ -18,6 +18,8 @@ export default function expand_users(state = initialState, action) {
         ...state,
         errors: action.payload.errors
       };
+    case RESET_USERS:
+      return initialState;
     default:
       return state;
   }

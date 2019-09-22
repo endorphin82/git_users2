@@ -9,24 +9,20 @@ import { StyledContainer, Wrapper } from "../../theme/globalStyle";
 const InputLocation = (props) => {
   const [input, setInput] = useState("Kharkov");
   useEffect(() => {
-   !props.isUsers && props.onGetUsers(input);
+    !props.isUsers && props.onGetUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
-  }, [props.users]);
+  }, [props]);
 
   const inputHandler = event => {
     setInput(event.target.value);
-    console.log("event", event.target.name, " ", event.target.value);
   };
-
   const handleSubmit = event => {
-    // props.resetUsers();
-    if (event) {
-      event.preventDefault();
-    }
-    console.log("SUBMIT", event.target.value);
+    event.preventDefault();
+    props.resetUsers();
     props.onGetUsers(input);
   };
 
@@ -90,16 +86,21 @@ const Styledlabel = styled.label`
 `;
 
 const LabelLeftContainer = styled(Styledlabel)`
+  min-width: 260px;
   width: 33.333%; 
   text-align: left;
 `;
 
 const Center = styled.div`
+  min-width: 260px;
   width: 33.333%;
   text-align: center;
 `;
 
+// TODO: auth
 // const Right = styled.div`
+// min-width: 260px;
+
 //   width: 33.333%;
 //   text-align: center;
 // `;
@@ -110,10 +111,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetUsers,
+  resetUsers: () => dispatch(resetUsers()),
   onGetUsers: (ownProps) => dispatch(getUsers(ownProps)),
   onLoadInfoUserByLogin: (login, idx) => dispatch(loadInfoUserByLogin(login, idx))
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputLocation);
