@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useQuery } from "@apollo/react-hooks";
 import withHocs from "./input-location-hocs";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
-import { GET_USERS_OF_LOCATION } from "./queries";
-import { Query } from "react-apollo";
 
 const InputLocation = (props) => {
   const [input, setInput] = useState("Kharkov");
@@ -16,7 +13,6 @@ const InputLocation = (props) => {
   useEffect(() => {
     if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
   }, [props]);
-  const { data } = useQuery(GET_USERS_OF_LOCATION);
 
   const inputHandler = event => {
     setInput(event.target.value);
@@ -34,25 +30,11 @@ const InputLocation = (props) => {
 
   return (
     <>
-      {/*<Query query={GET_USERS_OF_LOCATION}>*/}
-      {/*  {*/}
-      {/*    ({data}) => {*/}
-      {/*      console.log(data);*/}
-      {/*      return(*/}
-      {/*        <ul>*/}
-      {/*        {data && data.search && data.search.edges.map(i => {*/}
-      {/*          return <li key={i.node.name}>{i.node.name}</li>;*/}
-      {/*        })}*/}
-      {/*      </ul>)*/}
-      {/*    }*/}
-      {/*  }*/}
-      {/*</Query>*/}
-
       <ul>
-      {        data && data.search && data.search.edges.map(i => {
+        {props.data && props.data.search && props.data.search.edges.map(i => {
           return <li key={i.node.name}>{i.node.name}</li>;
         })
-      }
+        }
       </ul>
 
       <Wrapper>
