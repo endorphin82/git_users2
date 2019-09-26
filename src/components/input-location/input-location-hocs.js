@@ -6,11 +6,7 @@ import { graphql } from "react-apollo";
 import { GET_USERS_OF_LOCATION } from "./queries";
 
 
-// const withGraphQL = graphql(GET_USERS_OF_LOCATION, {
-//   options: ({   queryString = "location:Kharkov" }) => ({
-//     variables: { queryString }
-//   })
-// });
+const withGraphQL = graphql(GET_USERS_OF_LOCATION);
 
 const mapStateToProps = state => ({
   isUsers: isUsers(state),
@@ -25,5 +21,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  // withGraphQL
+  withGraphQL
 );
