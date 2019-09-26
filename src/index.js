@@ -1,7 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Provider} from "react-redux"
-import App from './App';
-import store from './store'
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+// import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from 'react-apollo';
 
-ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
+import App from "./App";
+import store from "./store";
+import { client } from "./store/apollo-client";
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <App/>
+    </Provider>
+  </ApolloProvider>
+  , document.getElementById("root"));

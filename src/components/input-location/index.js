@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
-import { getUsers, loadInfoUserByLogin, resetUsers } from "../../actions";
-import { connect } from "react-redux";
-import { isUsers, usersGetter } from "../../selectors";
+// import { useQuery } from "@apollo/react-hooks";
+import withHocs from "./input-location-hocs";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
+import { GET_USERS_OF_LOCATION } from "./queries";
+import { Query } from "react-apollo";
 
 const InputLocation = (props) => {
   const [input, setInput] = useState("Kharkov");
@@ -16,6 +16,10 @@ const InputLocation = (props) => {
   useEffect(() => {
     if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
   }, [props]);
+  // const { data } = useQuery(GET_USERS_OF_LOCATION, {
+  //     variables: { queryString: "location:Kharkov" }
+  //   }
+  // );
 
   const inputHandler = event => {
     setInput(event.target.value);
@@ -30,8 +34,23 @@ const InputLocation = (props) => {
     event.target.placeholder = "";
     event.target.value = "";
   };
+
   return (
     <>
+      <Query query={GET_USERS_OF_LOCATION}>
+        {
+          ({data}) => {
+            console.log(data);
+            return(
+              <ul>
+              {data && data.search && data.search.edges.map(i => {
+                return <li key={i.node.name}>{i.node.name}</li>;
+              })}
+            </ul>)
+          }
+        }
+      </Query>
+
       <Wrapper>
         <StyledContainerCenter>
           <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
@@ -105,15 +124,5 @@ const Center = styled.div`
 //   text-align: center;
 // `;
 
-const mapStateToProps = state => ({
-  isUsers: isUsers(state),
-  users: usersGetter(state)
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  resetUsers: () => dispatch(resetUsers()),
-  onGetUsers: (ownProps) => dispatch(getUsers(ownProps)),
-  onLoadInfoUserByLogin: (login, idx) => dispatch(loadInfoUserByLogin(login, idx))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(InputLocation);
+export default withHocs(InputLocation);

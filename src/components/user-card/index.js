@@ -69,6 +69,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   min-width: 300px;
+  max-width: 900px;
 `;
 const Paragraph = styled.p`
   margin: 10px;

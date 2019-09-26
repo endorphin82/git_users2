@@ -1,5 +1,4 @@
 import axios from "axios";
-import { API_TOKEN } from "./secret";
 
 const API_PREFIX = "https://api.github.com";
 const NUMBER_OF_PROFILES_TO_DISPLAY = 10;
@@ -8,7 +7,7 @@ export function getPopularUsersByLocation(location) {
   const params = {
     q: `location:${location}`,
     per_page: NUMBER_OF_PROFILES_TO_DISPLAY,
-    access_token: API_TOKEN,
+    access_token: process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN,
     token_type: "bearer",
     sort: "followers",
     order: "desc"
