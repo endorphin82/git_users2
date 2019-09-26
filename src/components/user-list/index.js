@@ -1,10 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
+import withHocs from './user-list-hocs.js'
 import UserCard from "../user-card";
-import { connect } from "react-redux";
-import { expandUsersGetter } from "../../selectors";
-import { loadInfoUserByLogin } from "../../actions";
 
 const FlexColumn = styled.div`
   flex-direction: column;
@@ -28,11 +25,4 @@ function UserList(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  users: expandUsersGetter(state)
-});
-const mapDispatchToProps = dispatch => ({
-  onLoadInfoUserByLogin: (login, idx) => dispatch(loadInfoUserByLogin(login, idx))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserList);
+export default withHocs(UserList);
