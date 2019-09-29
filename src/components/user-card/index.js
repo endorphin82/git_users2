@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { expandUserByIndFactory } from "../../selectors";
+import { userByIndFactory } from "../../selectors";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
 
 const UserCard = (props) => {
-  const { login, node_id, avatar_url, bio, email, location, name, stars } = props.user;
+  const { login, node_id, avatarUrl, bio, email, location, repositories, name } = props.user;
+  const stars = repositories.edges.reduce((acc, r) => acc + r.node.stargazers.totalCount, 0);
+  console.log(login, stars);
   return (
     <div key={node_id}>
       <WrapperBorder>
         <StyledContainer>
           <Left>
-            <img width='50' height='50' src={avatar_url} alt=""/>
+            <img width='50' height='50' src={avatarUrl} alt=""/>
           </Left>
           <Right>
             <Paragraph>
@@ -19,12 +21,12 @@ const UserCard = (props) => {
               {
                 stars
                   ?
-                  <span> -
+                  <span> - {" "}
+                  {stars}
                   <IconStar viewBox="0 0 14 16" version="1.1" width="14" height="16" role="img">
                     <path
                       d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/>
                   </IconStar>
-                  stars
                 </span>
                   : null
               }
@@ -138,8 +140,8 @@ const IconStar = styled.svg`
 `;
 
 export default connect((state, ownProps) => {
-  const userSelector = expandUserByIndFactory();
+  const userSelector = userByIndFactory();
   return {
-    user: userSelector(state, ownProps)
+    user: userSelector(state, ownProps),
   };
 }, null)(UserCard);

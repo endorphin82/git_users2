@@ -1,9 +1,9 @@
 import { gql } from "apollo-boost";
 
 export const GET_USERS_OF_LOCATION = gql`
-#    query searchMostTop10Users($queryString: String!)
+    query searchMostTop10Users($query: String!)
     {
-        search(query: "location:Kharkov", type: USER, first: 10) {
+        search(query: $query, type: USER, first: 10) {
             edges {
                 node {
                     ... on User {
@@ -17,10 +17,17 @@ export const GET_USERS_OF_LOCATION = gql`
                         starredRepositories {
                             totalCount
                         }
-                        repositories {
-                            totalCount
-                        }
-                        repositories {
+#                        repositories {
+#                            totalCount
+#                        }
+                        repositories(
+                            privacy: PUBLIC
+                            first: 100
+                            isFork: false
+                            ownerAffiliations: [COLLABORATOR, OWNER]
+                            orderBy: {field: PUSHED_AT, direction: DESC}
+                        )
+                        {
                             edges {
                                 node {
                                     ... on Repository {

@@ -19,7 +19,7 @@ export default function users(state = initialState, action) {
     case FETCH_USERS + SUCCESS:
       return {
         ...state,
-        users: action.payload.users.items.slice(0, 10),
+        users: action.payload.users.edges.slice(0, 10),
         errors: {},
         loading: true
       };

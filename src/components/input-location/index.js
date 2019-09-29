@@ -9,10 +9,9 @@ const InputLocation = (props) => {
     !props.isUsers && props.onGetUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
-  }, [props]);
+  // useEffect(() => {
+  //   if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
+  // }, [props]);
 
   const inputHandler = event => {
     setInput(event.target.value);
@@ -30,13 +29,6 @@ const InputLocation = (props) => {
 
   return (
     <>
-      <ul>
-        {props.data && props.data.search && props.data.search.edges.map(i => {
-          return <li key={i.node.name}>{i.node.name}</li>;
-        })
-        }
-      </ul>
-
       <Wrapper>
         <StyledContainerCenter>
           <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>

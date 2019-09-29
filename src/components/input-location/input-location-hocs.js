@@ -2,11 +2,6 @@ import { isUsers, usersGetter } from "../../selectors";
 import { getUsers, loadInfoUserByLogin, resetUsers } from "../../actions";
 import { compose } from "recompose";
 import { connect } from "react-redux";
-import { graphql } from "react-apollo";
-import { GET_USERS_OF_LOCATION } from "./queries";
-
-
-const withGraphQL = graphql(GET_USERS_OF_LOCATION);
 
 const mapStateToProps = state => ({
   isUsers: isUsers(state),
@@ -21,5 +16,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withGraphQL
 );
