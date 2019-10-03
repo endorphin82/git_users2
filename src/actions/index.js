@@ -2,7 +2,7 @@ import axios from "axios";
 import {
   BASEUSERSAPI,
   FETCH_USERS, START, SUCCESS, FAILURE,
-  LOAD_INFO_USER_BY_LOGIN, RESET_USERS, GITHUB_BASE_URL
+  LOAD_INFO_USER_BY_LOGIN, RESET_USERS,
 } from "./actions-types";
 import { GET_USERS_OF_LOCATION } from "../components/input-location/queries";
 import { client } from "../store/apollo-client";

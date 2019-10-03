@@ -5,7 +5,7 @@ import { userByIndFactory } from "../../selectors";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
 
 const UserCard = (props) => {
-  const { login, node_id, avatarUrl, bio, email, location, repositories, name } = props.user;
+  const { login, node_id, avatarUrl, followers, bio, email, location, repositories, name } = props.user;
   const stars = repositories.edges.reduce((acc, r) => acc + r.node.stargazers.totalCount, 0);
   console.log(login, stars);
   return (
@@ -19,17 +19,34 @@ const UserCard = (props) => {
             <Paragraph>
               <StyledGitHubLink nickname={login}>{login}</StyledGitHubLink> <span>{name}</span>
               {
+                followers.totalCount
+                  ?
+                  <span> {" "}
+                    <SpanCounter>
+                    {followers.totalCount}
+                    </SpanCounter>
+                    <IconFollowers viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img">
+                      <path
+                        d="M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z"></path>
+                    </IconFollowers>
+                  </span>
+                  : null
+              }
+              {
                 stars
                   ?
-                  <span> - {" "}
-                  {stars}
-                  <IconStar viewBox="0 0 14 16" version="1.1" width="14" height="16" role="img">
+                  <span>{" "}
+                    <SpanCounter>
+                    {stars}
+                    </SpanCounter>
+                    <IconStar viewBox="0 0 14 16" version="1.1" width="14" height="16" role="img">
                     <path
                       d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/>
                   </IconStar>
-                </span>
+                  </span>
                   : null
               }
+
             </Paragraph>
             <Paragraph>
               {bio}
@@ -58,6 +75,20 @@ const UserCard = (props) => {
     </div>
   );
 };
+
+const SpanCounter = styled.span`
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: #586069;
+    background-color: rgba(27,31,35, 0.08);
+    border-radius: 20px;
+      :hover {
+    background-color: rgba(27,31,35, 0.1);
+  }
+`;
 
 const WrapperBorder = styled(Wrapper)`
   border-top: 1px solid rgba(0,0,0, 0.1);
@@ -137,11 +168,23 @@ const IconStar = styled.svg`
   margin-right: 3px;
   vertical-align: bottom;
   fill: gold;
+    :hover {
+    fill: rgba(255, 215, 0, 0.4);
+  }
 `;
-
+const IconFollowers = styled.svg`
+  flex: none;
+  margin-left: 3px;
+  margin-right: 3px;
+  vertical-align: bottom;
+  fill: rgba(0,0,0, 0.3);
+  :hover {
+    fill: rgba(0,0,0, 0.2);
+  }
+`;
 export default connect((state, ownProps) => {
   const userSelector = userByIndFactory();
   return {
-    user: userSelector(state, ownProps),
+    user: userSelector(state, ownProps)
   };
 }, null)(UserCard);

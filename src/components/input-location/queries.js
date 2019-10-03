@@ -14,12 +14,12 @@ export const GET_USERS_OF_LOCATION = gql`
                         avatarUrl
                         login
                         location
+                        followers {
+                            totalCount
+                        }
                         starredRepositories {
                             totalCount
                         }
-#                        repositories {
-#                            totalCount
-#                        }
                         repositories(
                             privacy: PUBLIC
                             first: 100
