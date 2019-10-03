@@ -9,10 +9,9 @@ const InputLocation = (props) => {
     !props.isUsers && props.onGetUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
-  }, [props]);
+  // useEffect(() => {
+  //   if (props.users.length !== undefined) props.users.map((user, idx) => props.onLoadInfoUserByLogin(user.login, idx));
+  // }, [props]);
 
   const inputHandler = event => {
     setInput(event.target.value);
@@ -30,13 +29,6 @@ const InputLocation = (props) => {
 
   return (
     <>
-      <ul>
-        {props.data && props.data.search && props.data.search.edges.map(i => {
-          return <li key={i.node.name}>{i.node.name}</li>;
-        })
-        }
-      </ul>
-
       <Wrapper>
         <StyledContainerCenter>
           <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
@@ -51,23 +43,70 @@ const InputLocation = (props) => {
                 name="location"
                 required
               />
+              <InputButton type="submit">
+                Go
+              </InputButton>
             </form>
           </Center>
-          {/*<Right> asda</Right>*/}
+          <Right>
+            <LoginButton>
+              Login with GitHub
+            </LoginButton>
+          </Right>
         </StyledContainerCenter>
       </Wrapper>
     </>
   );
 };
 
-const Input = styled.input`
-  font-size: 16px;
+const Button = styled.button`
+  display: inline-block;
+  padding: 5px 10px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333333;
+`;
+
+const LoginButton = styled(Button)`
+  color: #eeeeee;
+  background-color: #7ea897;
+  border-color: #7ea897;
+  &:hover,&:active,&:focus {
+    color: #ffffff;
+    background-color: #66a87a;
+    border-color: #66A87A
+  }
+  :focus {
+    border-color: #66A87A;
+  }
+`;
+
+const InputButton = styled(LoginButton)`
+height: 100%;
+border-top-left-radius: 0;
+border-bottom-left-radius: 0;
   border: solid 1px #dbdbdb;
-  border-radius: 3px;
-  color: #262626;
+
+`;
+
+const Input = styled.input`
+  border: solid 1px #dbdbdb;
+  border-radius: 3px 0 0 3px;
+  border-right: none;
   outline: 0;
   padding: 7px 33px;
-  border-radius: 3px;
   color: #999;
   cursor: text;
   font-size: 14px;
@@ -84,13 +123,13 @@ const StyledContainerCenter = styled(StyledContainer)`
   padding-bottom: 26px;
 `;
 
-const Styledlabel = styled.label`
+const StyledLabel = styled.label`
   font-size: 14px;
   color: #7ea897;
   margin: auto 0;
 `;
 
-const LabelLeftContainer = styled(Styledlabel)`
+const LabelLeftContainer = styled(StyledLabel)`
   min-width: 260px;
   width: 33.333%; 
   text-align: left;
@@ -103,12 +142,12 @@ const Center = styled.div`
 `;
 
 // TODO: auth
-// const Right = styled.div`
-// min-width: 260px;
+const Right = styled.div`
+min-width: 140px;
 
-//   width: 33.333%;
-//   text-align: center;
-// `;
+  width: 33.333%;
+  text-align: center;
+`;
 
 
 export default withHocs(InputLocation);

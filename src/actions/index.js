@@ -2,21 +2,25 @@ import axios from "axios";
 import {
   BASEUSERSAPI,
   FETCH_USERS, START, SUCCESS, FAILURE,
-  LOAD_INFO_USER_BY_LOGIN, RESET_USERS
+  LOAD_INFO_USER_BY_LOGIN, RESET_USERS,
 } from "./actions-types";
-import api from "../api";
+import { GET_USERS_OF_LOCATION } from "../components/input-location/queries";
+import { client } from "../store/apollo-client";
 
 export const getUsers = (location = "Kharkov") => dispatch => {
-  // debugger
   dispatch({
     type: FETCH_USERS + START
   });
-  return api.getPopularUsersByLocation(location)
-    .then(response => response.data)
+  return client.query({
+    query: GET_USERS_OF_LOCATION,
+    variables: { "query": `location:${location}` }
+  })
+    .then(response => response.data.search)
     .then(users => dispatch({
-      type: FETCH_USERS + SUCCESS,
-      payload: { users }
-    }))
+        type: FETCH_USERS + SUCCESS,
+        payload: { users }
+      })
+    )
     .catch(errors => dispatch({
       type: FETCH_USERS + FAILURE,
       payload: { errors }
