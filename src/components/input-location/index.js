@@ -33,7 +33,7 @@ const InputLocation = (props) => {
         <StyledContainerCenter>
           <LabelLeftContainer htmlFor="location">Top ten most popular developers from location: </LabelLeftContainer>
           <Center>
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
               <Input
                 onFocus={handlerFocus}
                 placeholder="Location"
@@ -46,7 +46,7 @@ const InputLocation = (props) => {
               <InputButton type="submit">
                 Go
               </InputButton>
-            </form>
+            </Form>
           </Center>
           <Right>
             <LoginButton>
@@ -58,6 +58,10 @@ const InputLocation = (props) => {
     </>
   );
 };
+
+const Form = styled.form`
+  display: flex;
+`;
 
 const Button = styled.button`
   display: inline-block;
@@ -98,6 +102,7 @@ height: 100%;
 border-top-left-radius: 0;
 border-bottom-left-radius: 0;
   border: solid 1px #dbdbdb;
+  border-left: none;
 
 `;
 
@@ -121,12 +126,18 @@ const Input = styled.input`
 const StyledContainerCenter = styled(StyledContainer)`
   justify-content: flex-start;
   padding-bottom: 26px;
+  @media (max-width: 820px) {
+    justify-content: space-around;
+  }
 `;
 
 const StyledLabel = styled.label`
   font-size: 14px;
   color: #7ea897;
   margin: auto 0;
+  @media (max-width: 820px) {
+    display: none;
+  }
 `;
 
 const LabelLeftContainer = styled(StyledLabel)`
@@ -143,11 +154,9 @@ const Center = styled.div`
 
 // TODO: auth
 const Right = styled.div`
-min-width: 140px;
-
+  min-width: 140px;
   width: 33.333%;
   text-align: center;
 `;
-
 
 export default withHocs(InputLocation);
