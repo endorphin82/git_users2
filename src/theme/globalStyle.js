@@ -18,8 +18,7 @@ export const Wrapper = styled.div`
 `;
 export const StyledContainer = styled.div`
     //max-width: 1010px;
-    padding: 0 calc(50% - 500px);
-    padding-top: 26px;
+    padding: 26px calc(50% - 500px) 0;
     //padding-right: 20px;
     //padding-left: 20px;
     //padding-bottom: 26px;
@@ -28,63 +27,49 @@ export const StyledContainer = styled.div`
     flex-wrap: wrap;
     margin: 0 auto;
     @media (max-width: 1030px) {
-      padding: 0 calc(50% - 450px);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px calc(50% - 450px);
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       margin: 0 auto;
   }
     @media (max-width: 920px) {
-      padding: 0 calc(50% - 400px);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px calc(50% - 400px);
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       margin: 0 auto;
   }
     @media (max-width: 820px) {
-      padding: 0 calc(50% - 350px);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px calc(50% - 350px);
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       margin: 0 auto;
   }
       @media (max-width: 720px) {
-      padding: 0 calc(50% - 300px);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px calc(50% - 300px);
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       margin: 0 auto;
   }
       @media (max-width: 620px) {
-      padding: 0 calc(50% - 250px);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px calc(50% - 250px);
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       margin: 0 auto;
   }
         @media (max-width: 520px) {
-      padding: 0 calc(50% - 200px);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px calc(50% - 200px);
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       margin: 0 auto;
   }
     @media (max-width: 420px) {
-      padding: 0 calc(50% - 150px);
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px calc(50% - 150px);
       width: 100%;
       display: flex;
       flex-wrap: wrap;

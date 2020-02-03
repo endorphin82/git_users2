@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import withHocs from "./input-location-hocs";
 import { StyledContainer, Wrapper } from "../../theme/globalStyle";
+import { toParams } from "../../utils";
 
 const InputLocation = (props) => {
   const [input, setInput] = useState("Kharkov");
@@ -27,6 +28,14 @@ const InputLocation = (props) => {
     event.target.value = "";
   };
 
+  //TODO:
+  if (window.location.search.includes("code=")) {
+    console.log("window", window);
+    const values = toParams(window.location.search)
+    console.log("2win", values["code"] );
+    window.history.replaceState({}, document.title, "/" + "");
+  }
+
   return (
     <>
       <Wrapper>
@@ -51,6 +60,9 @@ const InputLocation = (props) => {
           <Right>
             <LoginButton>
               Login with GitHub
+
+              //TODO:
+              <a href="https://github.com/login/oauth/authorize?client_id=1b32686a4eb129ceb803">3asd!!asd</a>
             </LoginButton>
           </Right>
         </StyledContainerCenter>
@@ -98,9 +110,9 @@ const LoginButton = styled(Button)`
 `;
 
 const InputButton = styled(LoginButton)`
-height: 100%;
-border-top-left-radius: 0;
-border-bottom-left-radius: 0;
+  height: 100%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   border: solid 1px #dbdbdb;
   border-left: none;
 

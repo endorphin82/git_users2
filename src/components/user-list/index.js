@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import withHocs from './user-list-hocs.js'
+import withHocs from "./user-list-hocs.js";
 import UserCard from "../user-card";
+import Loading from "../loading";
 
 const FlexColumn = styled.div`
   flex-direction: column;
@@ -19,7 +20,7 @@ function UserList(props) {
             key={idx}
             idx={idx}
           />)
-          : <h1>Loading...</h1>
+          : <Loading/>
       }
     </FlexColumn>
   );
